@@ -1,0 +1,10 @@
+from sklearn.metrics import confusion_matrix
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+actual = ['Cat','Cat','Dog','Dog','Cat','Dog','Cat','Dog','Cat','Dog']
+pred   = ['Cat','Dog','Dog','Dog','Cat','Dog','Cat','Cat','Cat','Dog']
+
+sns.heatmap(confusion_matrix(actual, pred), annot=True, fmt='g',
+            xticklabels=['Cat','Dog'], yticklabels=['Cat','Dog'])
+plt.show()
