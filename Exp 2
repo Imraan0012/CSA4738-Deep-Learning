@@ -1,0 +1,33 @@
+from sklearn.datasets import load_wine
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import *
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+X, y = load_wine(return_X_y=True)
+
+X, y = X[y != 2], y[y != 2]
+
+Xtr, Xte, ytr, yte = train_test_split(X, y, test_size=0.3, random_state=1)
+
+
+model = DecisionTreeClassifier(random_state=1)
+model.fit(Xtr, ytr)
+
+
+yp = model.predict(Xte)
+
+
+print("Accuracy:", accuracy_score(yte, yp))
+print("\nClassification Report:\n", classification_report(yte, yp))
+print("Precision:", precision_score(yte, yp))
+print("Recall:", recall_score(yte, yp))
+print("F1 Score:", f1_score(yte, yp))
+
+cm = confusion_matrix(yte, yp)
+sns.heatmap(cm, annot=True, fmt='d')
+plt.xlabel("Predicted")
+plt.ylabel("Actual")
+plt.title("Confusion Matrix")
+plt.show()
